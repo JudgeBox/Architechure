@@ -1,6 +1,6 @@
 @startuml "Context"
-skinparam defaultFontName Arial
 ' skinparam defaultFontName ttf-wqy-zenhei
+skinparam defaultFontName Arial
 
 !include ./C4-PlantUML/C4_Context.puml
 
@@ -12,7 +12,7 @@ System_Boundary(JudgeApi, "JudgeApi") {
 }
 
 System_Boundary(JudgeBox, "JudgeBox") {
-    System_Boundary(Frontend, "前端網頁")
+    System_Boundary(Frontend, "前端")
     System_Boundary(Extension, "瀏覽器插件")
     System_Boundary(Backend, "後端")
 }

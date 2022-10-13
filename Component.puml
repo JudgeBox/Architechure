@@ -1,0 +1,35 @@
+@startuml "Backend Component"
+
+!include ./C4-PlantUML/C4_Component.puml
+!include ./Container.puml
+
+
+System_Boundary(JudgeApi, "JudgeApi") {
+    Container(ApiScript, "Script", "爬蟲") {
+        Component(Python, "Python")
+    }
+    System(ApiServer, "API Server") {
+        Component(ApiServer_worker, "Node.js")
+    }
+}
+
+System_Boundary(JudgeBox, "JudgeBox") {
+    System_Boundary(Backend, "Backend") {
+        ContainerDb(UserDB, "User Database", "處理用戶登入") {
+            Component(Firebase, "Firebase", "Authentication, User data")
+        }
+        ContainerDb(DB, "Database") {
+            Component(MongoDB, "MongoDB", "All data")
+        }
+        Container(WebServer, "WebServer") {
+            Component(WebServer_worker, "Node.js")
+        }
+    }
+
+    System_Boundary(Frontend, "前端") {
+        Component(Flutter, "Flutter")
+    }
+}
+
+
+@enduml

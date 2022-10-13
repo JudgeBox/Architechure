@@ -7,11 +7,11 @@ LAYOUT_WITH_LEGEND()
 
 System_Boundary(JudgeApi, "JudgeApi") {
     Container(ApiScript, "Script", "爬蟲")
-    ContainerDb(ApiDB, "DataBase", "", "題目、用戶資料")
+    ContainerDb(ApiDB, "API Database", "", "題目資料")
 
     Rel(ApiScript, ApiDB, "交互")
     Rel(ApiServer, ApiDB, "交互")
-    Rel(ApiScript, Judge, "爬蟲")
+    Rel_L(ApiScript, Judge, "爬蟲")
 }
 
 
@@ -19,12 +19,14 @@ System_Boundary(JudgeApi, "JudgeApi") {
 System_Boundary(JudgeBox, "JudgeBox") {
     System_Boundary(Backend, "Backend") {
         Container(WebServer, "Web Server")
-        ContainerDb(DB, "DataBase")
+        ContainerDb(DB, "Database")
+        ContainerDb(UserDB, "User Database", "處理用戶登入")
         Rel(WebServer, DB, "交互")
+        Rel(WebServer, UserDB, "交互")
     }
     Rel_U(WebServer, Frontend, "交互")
     Rel_R(Extension, Frontend, "交互")
 }
-Rel_R(WebServer, ApiServer, "題目資料", "http request")
+Rel(WebServer, ApiServer, "題目資料", "http request")
 
 @enduml
