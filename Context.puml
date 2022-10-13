@@ -1,0 +1,30 @@
+@startuml "Context"
+skinparam defaultFontName Arial
+' skinparam defaultFontName ttf-wqy-zenhei
+
+!include ./C4-PlantUML/C4_Context.puml
+
+LAYOUT_WITH_LEGEND()
+
+
+System_Boundary(JudgeApi, "JudgeApi") {
+    System(ApiServer, "API Server")
+}
+
+System_Boundary(JudgeBox, "JudgeBox") {
+    System_Boundary(Frontend, "前端網頁")
+    System_Boundary(Extension, "瀏覽器插件")
+    System_Boundary(Backend, "後端")
+}
+
+System_Boundary(Judge, "Online Judge") {
+}
+
+
+Person(user, "User")
+Rel_D(user, Extension, "使用插件")
+Rel_D(user, Frontend, "使用平台", "Web、Android、iOS")
+Rel_D(user, ApiServer, "開發第三方軟體（Discord Bot、...）")
+Rel_D(user, Judge, "練習題目")
+
+@enduml

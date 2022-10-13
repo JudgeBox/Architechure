@@ -1,0 +1,30 @@
+@startuml "Container"
+
+!include ./C4-PlantUML/C4_Container.puml
+!include ./Context.puml
+
+LAYOUT_WITH_LEGEND()
+
+System_Boundary(JudgeApi, "JudgeApi") {
+    Container(ApiScript, "Script", "爬蟲")
+    ContainerDb(ApiDB, "DataBase", "", "題目、用戶資料")
+
+    Rel(ApiScript, ApiDB, "交互")
+    Rel(ApiServer, ApiDB, "交互")
+    Rel(ApiScript, Judge, "爬蟲")
+}
+
+
+
+System_Boundary(JudgeBox, "JudgeBox") {
+    System_Boundary(Backend, "Backend") {
+        Container(WebServer, "Web Server")
+        ContainerDb(DB, "DataBase")
+        Rel(WebServer, DB, "交互")
+    }
+    Rel_U(WebServer, Frontend, "交互")
+    Rel_R(Extension, Frontend, "交互")
+}
+Rel_R(WebServer, ApiServer, "題目資料", "http request")
+
+@enduml
